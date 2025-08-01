@@ -25,15 +25,15 @@ class ResPath(nn.Module):
         self.filters = filters
         
         # 创建第一个残差块
-        self.initial_shortcut = ConvBN(in_channels, filters, 1, padding='same', activation=None)
-        self.initial_conv = ConvBN(in_channels, filters, 3, padding='same', activation='relu')
+        self.initial_shortcut = ConvBN(in_channels, filters, 1, padding=0, activation=None)
+        self.initial_conv = ConvBN(in_channels, filters, 3, padding=1, activation='relu')
         
         # 创建后续的残差块
         self.blocks = nn.ModuleList()
         for _ in range(length-1):
             block = nn.ModuleDict({
-                'shortcut': ConvBN(filters, filters, 1, padding='same', activation=None),
-                'conv': ConvBN(filters, filters, 3, padding='same', activation='relu')
+                'shortcut': ConvBN(filters, filters, 1, padding=0, activation=None),
+                'conv': ConvBN(filters, filters, 3, padding=1, activation='relu')
             })
             self.blocks.append(block)
     
